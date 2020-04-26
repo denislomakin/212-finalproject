@@ -1,40 +1,33 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Speech to IPA Demo</title>
+<title>Phono Speech</title>
+<link href="https://fonts.googleapis.com/css2?family=Muli:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 <style>
   * {
-    font-family: Verdana, Arial, sans-serif;
+    font-family: 'Darker Grotesque', sans-serif;
+    background-color: black;
+    color: white;
+    max-width: 1000px;
+    margin: 0 auto;
   }
-  a:link {
-    color:#000;
-    text-decoration: none;
+  h1 {
+    font-weight: 600;
+    color: #ff6f61;
   }
-  a:visited {
-    color:#000;
+  h2 {
+    color: #ff6f61;
+    font-size: 20px;
   }
-  a:hover {
-    color:#33F;
-  }
-  .button {
-    background: -webkit-linear-gradient(top,#008dfd 0,#0370ea 100%);
-    border: 1px solid #076bd2;
-    border-radius: 3px;
-    color: #fff;
-    display: none;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 1.3;
-    padding: 8px 25px;
-    text-align: center;
-    text-shadow: 1px 1px 1px #076bd2;
-    letter-spacing: normal;
+  .main {
+    max-width: 800px;
   }
   .center {
     padding: 10px;
-    text-align: center;
+    margin-bottom: 50px;
+    font-weight: 800;
+
   }
   .final {
-    color: black;
     padding-right: 3px; 
   }
   .interim {
@@ -56,35 +49,45 @@
     text-align: left;
     vertical-align: top;
   }
-  #headline {
+  .translator_title {
     font-size: 40px;
-    font-weight: 300;
+    color: white;
+    margin-bottom: 20px;
   }
+  
   #info {
     font-size: 20px;
     text-align: center;
     color: #777;
     visibility: hidden;
+    display: none;
   }
   #results {
-    font-size: 14px;
     font-weight: bold;
-    border: 1px solid #ddd;
-    padding: 15px;
     text-align: left;
     min-height: 150px;
+    margin-bottom: 50px;
   }
   #start_button {
     border: 0;
     background-color:transparent;
     padding: 0;
   }
+  #final_span, #ipa-out {
+    resize: none;
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    margin: 20px 0 20px 0;
+    font-size: 20px;
+    padding: 20px;
+  }
 </style>
 <script src="../static/text-to-ipa.js"></script>
 <script src="../static/converter-form.js"></script>
 <h1 class="center" id="headline">
-  <a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
-    Speech to IPA</a> Demonstration</h1>
+  PHONOSPEECH
+</h1>
 <div id="info">
   <p id="info_start">Click on the microphone icon and begin speaking.</p>
   <p id="info_speak_now">Speak now.</p>
@@ -103,33 +106,37 @@
      Upgrade to <a href="//www.google.com/chrome">Chrome</a>
      version 25 or later.</p>
 </div>
-<div class="right">
-  <button id="start_button" onclick="startButton(event)">
-    <img id="start_img" src="../static/mic.gif" alt="Start"></button>
-</div>
-<div id="results">
-  <span id="interim_span" class="interim"></span><br>
-  <textarea id="final_span" rows="4" cols="50" class="final"></textarea>
-  <p>
-</div>
-<div id="ipa-results">
-  <li><textarea id="ipa-out" rows="4" cols="50"></textarea></li>
-</div>
-<div id="ipa-err">
-  <p> </p>
-</div>
-<div class="center">
-  <div class="sidebyside" style="text-align:center">
-    <button id="copy_button" class="button" onclick="copyButton()">
-      Copy and Paste</button>
-    <div id="copy_info" class="info">
-      Press Control-C to copy text.<br>(Command-C on Mac.)
+
+<div class="main">
+  <div class="right">
+    <button id="start_button" onclick="startButton(event)">
+      <img id="start_img" src="../static/mic.gif" alt="Start"></button>
+  </div>
+  <h1 class="translator_title">TRANSLATOR</h1>
+  
+  
+  <div id="results">
+    <h2>VOICE TRANSCRIPT</h2>
+    <span id="interim_span" class="interim"></span><br>
+    <textarea id="final_span" class="final" disabled></textarea>
+    <p>
+  </div> 
+  
+  <div id="ipa-results">
+    <h2>IPA TRANSCRIPT</h2>
+    <textarea id="ipa-out" rows="4" cols="50" disabled></textarea>
+  </div>
+  
+  <div class="center">
+    <div class="sidebyside" style="text-align:center">
+      <button id="copy_button" class="button" onclick="copyButton()">
+        Copy and Paste</button>
+      <div id="copy_info" class="info">
+        Press Control-C to copy text.<br>(Command-C on Mac.)
+      </div>
     </div>
   </div>
-  <div class="sidebyside">
-    
-  </div>
-  <p>
+
 </div>
 <script>
 window.onload = TextToIPA.loadDict('../static/ipadict.txt');
@@ -349,6 +356,7 @@ function showInfo(s) {
       }
     }
     info.style.visibility = 'visible';
+    info.style.display = 'block';
   } else {
     info.style.visibility = 'hidden';
   }

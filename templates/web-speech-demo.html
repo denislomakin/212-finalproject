@@ -22,10 +22,8 @@
     max-width: 800px;
   }
   .center {
-    padding: 10px;
-    margin-bottom: 50px;
     font-weight: 800;
-
+    margin: 0;
   }
   .final {
     padding-right: 3px; 
@@ -78,16 +76,58 @@
     width: 100%;
     height: 200px;
     border-radius: 15px;
+    border-width: 3px;
     margin: 20px 0 20px 0;
     font-size: 20px;
     padding: 20px;
+    border-color: gray;
+  }
+  nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between  ;
+    margin-bottom: 50px;
+    padding: 20px 0;
+  }
+  ul {
+    display: flex;
+    flex-direction: row;
+    margin: auto 0;
+  }
+  li {
+    list-style-type: none;
+  }
+  a {
+    text-decoration: none;
+    padding: 10px 20px 10px 20px;
+    font-weight: 600;
+  }
+  .current {
+    color: #ff6f61;
+  }
+  .feedback {
+    max-width: 800px;
+  }
+  #ipa-results {
+    margin-bottom: 50px;
   }
 </style>
 <script src="../static/text-to-ipa.js"></script>
 <script src="../static/converter-form.js"></script>
-<h1 class="center" id="headline">
-  PHONOSPEECH
-</h1>
+<nav>
+  <h1 class="center" id="headline">
+    PHONOSPEECH
+  </h1>
+  <ul>
+    <li>
+      <a href="./description.html">DESCRIPTION</a>
+    </li>
+    <li>
+      <a class="current" href="web-speech-demo.html">TRANSLATOR</a>
+    </li>
+  </ul>
+</nav>
+
 <div id="info">
   <p id="info_start">Click on the microphone icon and begin speaking.</p>
   <p id="info_speak_now">Speak now.</p>
@@ -126,17 +166,24 @@
     <h2>IPA TRANSCRIPT</h2>
     <textarea id="ipa-out" rows="4" cols="50" disabled></textarea>
   </div>
-  
-  <div class="center">
-    <div class="sidebyside" style="text-align:center">
-      <button id="copy_button" class="button" onclick="copyButton()">
-        Copy and Paste</button>
-      <div id="copy_info" class="info">
-        Press Control-C to copy text.<br>(Command-C on Mac.)
-      </div>
-    </div>
-  </div>
+</div>
 
+<div class="feedback">
+  <form action="">
+    <h2>How is the IPA transcript accuracy(Scale of 1-5):</h2>
+    <br>  
+    <input type="radio" id="male" name="gender" value="1">
+    <label for="male">1</label><br><br>
+    <input type="radio" id="female" name="gender" value="2">
+    <label for="female">2</label><br><br>
+    <input type="radio" id="other" name="gender" value="3">
+    <label for="other">3</label><br><br>
+    <input type="radio" id="other" name="gender" value="4">
+    <label for="other">4</label><br><br>
+    <input type="radio" id="other" name="gender" value="5">
+    <label for="other">5</label><br><br>
+    <input type="submit" value="Submit">
+  </form>
 </div>
 <script>
 window.onload = TextToIPA.loadDict('../static/ipadict.txt');
